@@ -9,7 +9,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-    <title>My JSP 'getcoor.jsp' starting page</title>
+    
     
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
@@ -24,7 +24,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	function getcoor(){
 		var form = document.forms[0];
 		form.action="movie/getcoor";
-		form.method="post";
+		form.method="POST";
 		form.submit();
 	}
 </script>
@@ -33,7 +33,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <body>
     <div align="center">
     <form action="movie/getcoor" method="post" >
-   <input type="text" name="title">
+   <input type="text" name="address">
     <button type="button" class="btn btn-primary" onclick="getcoor()">搜索周边影院</button>
     </form>
   </body>

@@ -38,12 +38,9 @@ public class MovieController {
 	@RequestMapping("/getcoor")
 	public void getCoor(HttpServletRequest request,HttpServletResponse response){
 		
-		try {
+		
 			service.getCoor(request, response);
-		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
 		
 	}
 }

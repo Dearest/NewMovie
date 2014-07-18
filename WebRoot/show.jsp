@@ -9,7 +9,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-    <title>My JSP 'show.jsp' starting page</title>
+    <title>搜索电影</title>
     
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
@@ -26,7 +26,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
   <body>
     <% List<AbstractMovieinfo> movielist = (List<AbstractMovieinfo>)request.getAttribute("movielist"); %>
-    <table class="table table-hover">
+    <table class="table table-hover" width=20%>
    
     <thead>
       <tr>
@@ -50,6 +50,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <%} %>
     </tbody>
     </table>
-    <div align="center"><a href="index.jsp" target="blank">返回前页</a></div>
+    <h4><div align="center"><a href="index.jsp" target="_top">返回搜索</a></div></h4>
   </body>
 </html>
