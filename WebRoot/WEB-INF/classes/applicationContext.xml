@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	 xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans-3.1.xsd 
+		http://www.springframework.org/schema/tx 
+		http://www.springframework.org/schema/tx/spring-tx.xsd  
+      	http://www.springframework.org/schema/context  
+      	http://www.springframework.org/schema/context/spring-context.xsd  
+      	http://www.springframework.org/schema/mvc  
+      	http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd" >
+	
+   
+
+
+	  <!-- 注解扫描包 -->
+
+	<context:component-scan base-package="com.movie.controller">
+	</context:component-scan>
+	
+	<!-- 开启注解 -->
+	<mvc:annotation-driven/>
+	
+	<!-- view层返回处理，如controller中返回'error' 经过处理就是返回/error.jsp -->
+	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/"></property>
+		<property name="suffix" value=".jsp"></property>
+	</bean>
+	<tx:annotation-driven transaction-manager="transactionManager" />
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		  <property name="defaultEncoding" value="utf-8" />
+	      <property name="maxUploadSize" value="10485760000" />
+	      <property name="maxInMemorySize" value="40960" />
+	</bean>
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+		<property name="url"
+			value="jdbc:mysql://localhost:3306/movie">
+		</property>
+		<property name="username" value="root"></property>
+		<property name="password" value="hanchen"></property>
+	</bean>
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<property name="dataSource">
+			<ref bean="dataSource" />
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">
+					org.hibernate.dialect.MySQLDialect
+				</prop>
+			</props>
+		</property>
+		<property name="mappingResources">
+			<list>
+				<value>com/movie/entity/Movieinfo.hbm.xml</value></list>
+		</property>
+	</bean>
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	
+	
+
+	
+	<!-- 定义用户业务逻辑层 并定义了事物 详见springmvc-hibernate.xml中transactionBase的定义 -->
+	
+	<bean
+		id="MovieinfoDAO" class="com.movie.dao.MovieinfoDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="service" class="com.movie.service.Service">
+	<property name="movieinfodao" ref="MovieinfoDAO"></property>
+	</bean>
+
+</beans>
