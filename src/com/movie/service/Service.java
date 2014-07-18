@@ -23,7 +23,12 @@ public class Service {
 	@SuppressWarnings("unchecked")
 	public void findMovie(HttpServletRequest request,
 			HttpServletResponse response) {
-		System.out.println("title��"+request.getParameter("title")+"  request��"+request);
+		try {
+			request.setCharacterEncoding("UTF-8");
+		} catch (UnsupportedEncodingException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		List<AbstractMovieinfo> movielist = (List<AbstractMovieinfo>)movieinfodao
 				.findByTitle(request.getParameter("title"));
 		request.setAttribute("movielist", movielist);
